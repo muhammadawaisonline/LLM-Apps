@@ -21,3 +21,12 @@ def generate_response(prompt):
     }
     response = requests.post(url=url, headers=headers, data=json.dumps(data))
     
+    
+    if response.status_code==200:
+        response= response.text
+        data= json.load(response)
+        actual_respnse = data["response"]
+        return actual_respnse
+    else:
+        print("Error: ", response.text )
+            
