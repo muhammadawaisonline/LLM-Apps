@@ -2,7 +2,7 @@ import requests
 import json
 import gradio as gr
 
-url = "https://localhost:11434/api/generate"
+url = "http://localhost:11434/api/generate"
 
 headers = {
     "Content-Type": "application/json"
@@ -16,7 +16,7 @@ def generate_response(prompt):
     data = {
         "model":"codeguru",
         "prompt":final_prompt,
-        "stream":False
+        "stream":False,
 
     }
     response = requests.post(url=url, headers=headers, data=json.dumps(data))
@@ -24,7 +24,7 @@ def generate_response(prompt):
     
     if response.status_code==200:
         response= response.text
-        data= json.load(response)
+        data= json.loads(response)
         actual_respnse = data["response"]
         return actual_respnse
     else:
@@ -37,3 +37,4 @@ interface= gr.Interface(
     outputs= "text"
 )
 interface.launch()
+# It's not working     ``
